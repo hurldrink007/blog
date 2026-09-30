@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=660" />
+<title>robert's corner - guestbook</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="wrap">
+    <div id="banner">
+      <h1>ROBERT'S CORNER</h1>
+      <div class="tagline">hiking, nature, and whatever i catch on tape out there &mdash; robert</div>
+    </div>
+
+    <div id="nav">
+      <a href="index.html">home</a>
+      <a href="about.html">about me</a>
+      <a href="mailto:RobertisSyck@gmail.com">e-mail</a>
+      <a href="guestbook.html">guestbook</a>
+    </div>
+
+    <div id="cols">
+      <div id="main">
+        <div class="post">
+          <h2>guestbook</h2>
+          <div class="meta">sign it, say hi</div>
+          <div class="body">
+            <form id="gbform" class="gbform" onsubmit="return signBook(event)">
+              <label>name:<br/><input type="text" id="gbname" maxlength="40" /></label><br/>
+              <label>message:<br/><textarea id="gbmsg" rows="3" maxlength="300"></textarea></label><br/>
+              <button type="submit">sign guestbook</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="gbentries">
+          <!-- entries injected below; oldest are hard-coded -->
+        </div>
+      </div>
+
+      <div id="side">
+        <div class="blk">
+          <h3>the viewer</h3>
+          <p>my Sony camcorder saves clips in its own format (<b>.arcv</b>). only the <b>Archive Viewer</b> opens them.</p>
+          <p><a href="downloads/ArchiveViewer.zip">&#187; download the Archive Viewer</a></p>
+        </div>
+        <div class="blk">
+          <h3>currently</h3>
+          <p>mood: tired<br/>drinking: coffee<br/>wanting: a Rolex Datejust</p>
+        </div>
+        <div class="blk">
+          <h3>links</h3>
+          <ul>
+            <li><a href="downloads/ArchiveViewer.zip">get the Archive Viewer</a></li>
+            <li><a href="https://www.nps.gov/findapark/index.htm" target="_blank" rel="noopener">state parks</a></li>
+            <li><a href="https://www.allaboutbirds.org/" target="_blank" rel="noopener">birding guide</a></li>
+            <li><a href="https://www.ebay.com/" target="_blank" rel="noopener">eBay</a></li>
+          </ul>
+        </div>
+        <div class="blk">
+          <h3>contact</h3>
+          <p>e-mail: <a href="mailto:RobertisSyck@gmail.com">RobertisSyck@gmail.com</a><br/>
+          cell: <a href="tel:+1667222546">+1 (667) 222-546</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="foot">
+      robert's corner &middot; best viewed at 1024x768 &middot; &copy; robert &middot; this page last updated recently
+    </div>
+  </div>
+
+  <script>
+    // Pre-existing entries (newest first). The last few tie into the ARG.
+    var ENTRIES = [
+      { name: "▢▢▢", date: "recently", msg: "he is almost finished. thank you for watching.", creep: true },
+      { name: "j.", date: "recently", msg: "who keeps uploading these files? they don't open in anything normal. what is the archive viewer.", creep: true },
+      { name: "Deb", date: "a while back", msg: "Robert, are you okay? your last few posts don't sound like you at all. call me back please.", creep: true },
+      { name: "hiker_pete", date: "a while back", msg: "that fox clip is incredible man. what camera you shooting on?" },
+      { name: "mike_h", date: "a while back", msg: "found your site from the birding forum. the pileated woodpecker footage is amazing. subscribed!" },
+      { name: "Deb", date: "a while back", msg: "great hawk video!! you've really got an eye for this. love, mom" },
+      { name: "carl_t", date: "a while back", msg: "cool truck lol" }
+    ];
+
+    function esc(s){ return String(s).replace(/[&<>\"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+
+    function render(){
+      document.getElementById("gbentries").innerHTML = ENTRIES.map(function(e){
+        return '<div class="gbentry' + (e.creep ? ' creep' : '') + '">' +
+                 '<div class="gbhead"><b>' + esc(e.name || "anonymous") + '</b> <span>' + esc(e.date) + '</span></div>' +
+                 '<div class="gbtext">' + esc(e.msg) + '</div>' +
+               '</div>';
+      }).join("");
+    }
+
+    function signBook(ev){
+      ev.preventDefault();
+      var n = document.getElementById("gbname").value.trim();
+      var m = document.getElementById("gbmsg").value.trim();
+      if(!m){ alert("write a message first!"); return false; }
+      ENTRIES.unshift({ name: n || "anonymous", date: "just now", msg: m });
+      document.getElementById("gbname").value = "";
+      document.getElementById("gbmsg").value = "";
+      render();
+      alert("Thanks for signing the guestbook!");
+      return false;
+    }
+
+    render();
+  </script>
+</body>
+</html>
