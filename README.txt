@@ -13,7 +13,7 @@ index.html   the page
 style.css    styling
 posts.js     ALL the writing + the release schedule (edit this)
 tapes/       the .arcv files players download
-downloads/   put your built ArchiveViewer-Setup.exe here (the site links to it)
+downloads/   ArchiveViewer.zip (all "download" links point here and force a download)
 
 HOSTING
 -------
